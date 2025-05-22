@@ -1,0 +1,45 @@
+import time
+import random
+
+# Simulated IoT sensor interface
+class IoTSensor:
+    def _init_(self, name):  # Fixed constructor
+        self.name = name
+
+    def read(self):
+        # Simulate different sensor types
+        if self.name == "heart_rate":
+            return random.randint(60, 100)
+        elif self.name == "temperature":
+            return round(random.uniform(36.0, 37.5), 2)
+        elif self.name == "oxygen_level":
+            return random.randint(95, 100)
+        return None
+
+# Optimized integration function
+def get_sensor_data(sensors):
+    data = {}
+    start_time = time.time()
+    for sensor in sensors:
+        value = sensor.read()
+        data[sensor.name] = value
+    elapsed_time = round((time.time() - start_time) * 1000, 2)  # in milliseconds
+    return data, elapsed_time
+
+# Main monitoring loop
+def monitor_system():
+    sensors = [IoTSensor("heart_rate"), IoTSensor("temperature"), IoTSensor("oxygen_level")]
+    print("\n Real-Time Health Monitoring Started...\n")
+
+    for i in range(20):  # simulate 20 sensor readings
+        sensor_data, latency = get_sensor_data(sensors)
+        print(f"Reading {i+1:02}: {sensor_data} | ⏱ Latency: {latency} ms")
+
+        # Simple performance threshold check
+        if latency > 100:
+            print("⚠ Warning: Sensor integration latency too high!\n")
+
+        time.sleep(1)  # Delay to simulate real-time
+
+if _name_ == "_main_":  # Fixed entry point
+    monitor_system()
