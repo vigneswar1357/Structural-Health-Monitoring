@@ -1,0 +1,51 @@
+import time
+import random
+from datetime import datetime
+
+# Thresholds for detecting anomalies
+STRAIN_THRESHOLD = 80
+VIBRATION_THRESHOLD = 10
+TEMPERATURE_THRESHOLD = 50
+
+# Simulate sensor data
+def get_sensor_data():
+    strain = random.uniform(0, 100)           # simulate strain
+    vibration = random.uniform(2, 12)         # simulate vibration
+    temperature = random.uniform(25, 60)      # simulate temperature
+    return strain, vibration, temperature
+
+# Check for anomalies
+def check_anomalies(strain, vibration, temperature):
+    issues = []
+    if strain > STRAIN_THRESHOLD:
+        issues.append("High strain")
+    if vibration > VIBRATION_THRESHOLD:
+        issues.append("Excessive vibration")
+    if temperature > TEMPERATURE_THRESHOLD:
+        issues.append("High temperature")
+    return issues
+
+# Main Loop
+def monitor_structure():
+    log_file = open("monitor_log.txt", "w")
+    log_file.write("Timestamp, Strain, Vibration, Temperature, Anomalies\n")
+
+    for _ in range(30):  # simulate 30 readings
+        strain, vibration, temperature = get_sensor_data()
+        issues = check_anomalies(strain, vibration, temperature)
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        log_line = f"{timestamp}, {strain:.2f}, {vibration:.2f}, {temperature:.2f}, {', '.join(issues) if issues else 'None'}"
+        print(log_line)
+        log_file.write(log_line + "\n")
+
+        if issues:
+            print("ALERT: ", ", ".join(issues))
+
+        time.sleep(1)  # simulate 1 second delay
+
+    log_file.close()
+    print("Monitoring completed. Check 'monitor_log.txt' for full log.")
+
+if _name_ == "_main_":  # Fixed
+    monitor_structure()
