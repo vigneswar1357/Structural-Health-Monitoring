@@ -1,0 +1,32 @@
+# Simple Structural Health Monitoring Code
+
+import random
+
+# Define thresholds
+THRESHOLDS = {
+    "strain": 4.0,
+    "vibration": 1.5,
+    "temperature": 35.0,
+    "displacement": 2.5
+}
+
+# Simulate and check sensor values
+for i in range(10):
+    strain = round(random.uniform(0.0, 5.0), 2)
+    vibration = round(random.uniform(0.0, 2.0), 2)
+    temperature = round(random.uniform(20.0, 40.0), 2)
+    displacement = round(random.uniform(0.0, 3.0), 2)
+
+    print(f"\nReading {i+1}:")
+    print(f"Strain: {strain}, Vibration: {vibration}, Temperature: {temperature}, Displacement: {displacement}")
+
+    if strain > THRESHOLDS["strain"]:
+        print("-> Warning: High strain detected!")
+    if vibration > THRESHOLDS["vibration"]:
+        print("-> Warning: Excessive vibration detected!")
+    if temperature > THRESHOLDS["temperature"]:
+        print("-> Warning: High temperature detected!")
+    if displacement > THRESHOLDS["displacement"]:
+        print("-> Warning: Excessive displacement detected!")
+
+    print("-" * 40)
